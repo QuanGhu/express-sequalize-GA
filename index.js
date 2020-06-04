@@ -4,10 +4,11 @@ require('dotenv').config()
 const express = require('express'),
     app = express(),
     model = require('./models'),
-    router = require('./router')
+    router = require('./router'),
+    jwt = require('jsonwebtoken')
 
 model.sequelize.sync().then(() => {
-    // app.set('secretKey', process.env.SECRET_KEY || 'nodeRestApi')
+    app.set('secretKey', process.env.SECRET_KEY || 'nodeRestApi')
     // app.use(cors(corsOptions))
     app.use(express.urlencoded({ extended: false }))
     app.use(express.json());
