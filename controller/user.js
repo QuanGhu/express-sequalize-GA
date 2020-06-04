@@ -42,4 +42,43 @@ module.exports = {
             return res.status(422).json( response.error(err) )
         })
     },
+    list (req, res) {
+        User.findAll()
+        .then((data) => {
+            return res.status(200).json( response.success('User successfully received', data) )
+        })
+        .catch((err) => {
+            return res.status(500).json( response.error(err))
+        })
+    },
+    destroy (req, res) {
+        User.destroy({
+            where: { id: req.body.id }
+        })
+        .then(data => {
+            if(data == 1) {
+                return res.status(200).json( response.success(`User with id ${req.body.id} deleted successfully`, true) )
+            } else {
+                return res.status(404).json( response.error(`User with id ${req.body.id} not found`, false) )
+            }
+        })
+        .catch(err => {
+            return res.status(500).json( response.error(err))
+        });
+    },
+    update (req, res) {
+        User.update({ name: req.body.name }, {
+            where: { id: req.body.id }
+        })
+        .then(data => {
+            if(data == 1) {
+                return res.status(200).json( response.success(`User with id ${req.body.id} updated successfully`, true) )
+            } else {
+                return res.status(404).json( response.error(`User with id ${req.body.id} not found`, false) )
+            }
+        })
+        .catch(err => {
+            return res.status(500).json( response.error(err))
+        });
+    },
 }
