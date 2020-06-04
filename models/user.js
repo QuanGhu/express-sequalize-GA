@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       get() {
         const rawValue = this.getDataValue('email');
-        const result = rawValue ? rawValue.toUpperCase(): null
+        const result = rawValue ? rawValue.toLowerCase() : null
 
         return result
       }
